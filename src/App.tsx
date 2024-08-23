@@ -20,6 +20,7 @@ import Contact from "./pages/Contact/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
+import MovieDetails from "./pages/MovieDetails/MovieDetails";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,6 +56,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/movie/:id" element={<MovieDetails />} />
           </Routes>
         </main>
         <Footer />

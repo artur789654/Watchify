@@ -1,5 +1,10 @@
+import Banner from '../../components/Banner/Banner'
+import Faqs from '../Faqs/Faqs'
 function Home() {
-  return <>Home Page</>
+  return <>
+  <Banner/>
+  <Faqs/>
+  </>
 }
 
 export default Home
