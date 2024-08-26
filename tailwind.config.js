@@ -10,12 +10,11 @@ module.exports = {
         "light-text-main": "#1A1A1A", // Основний текст
         "light-text-secondary": "#4B5563", // Вторинний текст
         "light-heading": "#111827", // Заголовки
-        "light-button-main": "#EF4444", // Основний колір кнопок
-        "light-button-hover": "#DC2626", // Ховер/активний стан кнопок
+        "light-button-main": "#22c55e", // Основний колір кнопок
+        "light-button-hover": "#16a34a", // Ховер/активний стан кнопок
         "light-link-main": "#000000", // Основний колір лінків
         "light-link-hover": "#333333", // Ховер/фокус лінків
         "light-link-active": "#666666", // Активний стан лінків
-       
 
         "dark-head-foot": "#1C1C1C",
         "dark-primary": "#181818", // Фон сайту
