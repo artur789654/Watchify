@@ -1,4 +1,3 @@
-import Header from '../Header/Header';
 import Button from '../../components/Button/Button';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -24,7 +23,6 @@ const NewPage: React.FC = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <Header />
       <div className="container mx-auto mt-12 p-6 bg-white rounded shadow-md">
         <h1 className="text-3xl mb-4 font-semibold text-indigo-600">Welcome to the New Page</h1>
         
