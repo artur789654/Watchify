@@ -7,9 +7,14 @@ export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 
 export const GENRE_MOVIE_LIST = "/genre/movie/list";
 export const GENRE_TV_LIST = "/genre/tv/list";
+
 export const POPULAR_MOVIES_ENDPOINT = "/movie/popular";
 export const TOP_RATED_MOVIES_ENDPOINT = "/movie/top_rated";
 export const UPCOMING_MOVIES_ENDPOINT = "/movie/upcoming";
-export const SEARCH_MOVIES_ENDPOINT = "/search/movie";
+
+export const POPULAR_TV_ENDPOINT = "/tv/popular";
+export const TOP_RATED_TV_ENDPOINT = "/tv/top_rated";
+
+export const SEARCH_MULTI_ENDPOINT = "/search/multi";
 
 export const API_TIMEOUT = 5000;

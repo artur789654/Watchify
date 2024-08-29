@@ -23,6 +23,7 @@ import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentB
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import StatusPage from "./pages/StatusPage/StatusPage";
 import Partnership from "./pages/Partnership/Partnership";
+import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -60,7 +61,8 @@ function App() {
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/status" element={<StatusPage />} />
-            <Route path="/partnership" element={<Partnership/>}/>
+            <Route path="/partnership" element={<Partnership />} />
+            <Route path="/investor-relations" element={<InvestorRelations />} />
           </Routes>
         </main>
         <Footer />
