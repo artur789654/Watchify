@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const TermsOfService: React.FC = () => {
   return (
-    <div className="container my-3 mx-auto p-6 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-inherit space-y-8">
+    <div className="container my-4 mx-auto p-6 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-inherit space-y-8">
       <h1 className="font-bold text-4xl mb-6">Terms Of Service</h1>
       <section className="bg-light-primary dark:bg-dark-primary p-6 rounded-md space-y-4 text-start">
         <h2 className="text-3xl font-semibold">1. Introduction</h2>

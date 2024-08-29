@@ -21,6 +21,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
+import StatusPage from "./pages/StatusPage/StatusPage";
+import Partnership from "./pages/Partnership/Partnership";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -57,6 +59,8 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/status" element={<StatusPage />} />
+            <Route path="/partnership" element={<Partnership/>}/>
           </Routes>
         </main>
         <Footer />

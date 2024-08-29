@@ -34,7 +34,7 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="bg-light-primary dark:bg-dark-primary flex flex-col items-center space-y-6 container mx-auto">
+    <section className="bg-light-secondary dark:bg-dark-secondary flex flex-col items-center space-y-6 container mx-auto p-6 mt-4 rounded-md">
       <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
       <div className="flex items-center justify-center relative w-1/2">
         <input
@@ -56,19 +56,19 @@ const Faqs: React.FC = () => {
       {faqData.map((category: Faq) => (
         <div
           key={category.category}
-          className="bg-light-secondary dark:bg-dark-secondary w-full text-start space-y-4 rounded-md shadow-md pb-6">
+          className="bg-light-primary dark:bg-dark-primary w-full text-start space-y-4 rounded-md shadow-md pb-6">
           <button
             onClick={() => toggleCategory(category.category)}
             aria-expanded={activeCategory === category.category}
             aria-controls={`faq-category-${category.category}`}
-            className="text-2xl font font-semibold cursor-pointer transform transition duration-300 hover:scale-95 px-6 pt-6">
+            className="text-2xl font font-semibold cursor-pointer transform transition duration-300 hover:scale-95 px-6 pt-6 w-full">
             {category.category}
           </button>
           {activeCategory === category.category &&
             category.questions.map((q) => (
               <div
                 key={q.question}
-                className="p-4 m-6 space-y-4 bg-light-primary dark:bg-dark-primary rounded-md shadow-md">
+                className="p-4 m-6 space-y-4 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-md">
                 <button
                   onClick={() => toggleQuestion(q.question)}
                   aria-expanded={openQuestion === q.question}

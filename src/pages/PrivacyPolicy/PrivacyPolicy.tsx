@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div className="container my-3 mx-auto p-6 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-inherit space-y-8">
+    <div className="container my-4 mx-auto p-6 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-inherit space-y-8">
       <h1 className="font-bold text-4xl mb-6">Privacy Policy</h1>
 
       <nav className="mb-10">
@@ -83,7 +83,9 @@ const PrivacyPolicy: React.FC = () => {
             Viewing history and preferences (e.g., Movies and series watched,
             ratings, etc.)
           </li>
-          <li className="text-light-text-secondary dark:text-dark-text-secondary">Device and usage data (e.g., IP address, browser type, etc.)</li>
+          <li className="text-light-text-secondary dark:text-dark-text-secondary">
+            Device and usage data (e.g., IP address, browser type, etc.)
+          </li>
         </ul>
         <p className="text-light-text-secondary dark:text-dark-text-secondary">
           This information helps us provide you with a personalized and enhanced
@@ -95,7 +97,9 @@ const PrivacyPolicy: React.FC = () => {
         <h2 className="text-3xl font-semibold">
           2. How We Use Your Information
         </h2>
-        <p className="text-light-text-secondary dark:text-dark-text-secondary">We use the collected information to:</p>
+        <p className="text-light-text-secondary dark:text-dark-text-secondary">
+          We use the collected information to:
+        </p>
         <ul className="list-disc list-inside pl-5">
           <li className="text-light-text-secondary dark:text-dark-text-secondary">
             Provide personalized content recommendations based on your viewing
@@ -157,10 +161,16 @@ const PrivacyPolicy: React.FC = () => {
         id="rights"
         className="p-6 rounded-md space-y-4 text-start bg-light-primary dark:bg-dark-primary">
         <h2 className="text-3xl font-semibold">5. Your Rights</h2>
-        <p className="text-light-text-secondary dark:text-dark-text-secondary">Under GDPR and CCPA, you have the following rights:</p>
+        <p className="text-light-text-secondary dark:text-dark-text-secondary">
+          Under GDPR and CCPA, you have the following rights:
+        </p>
         <ul className="list-disc list-inside pl-5">
-          <li className="text-light-text-secondary dark:text-dark-text-secondary">Right to access your data and obtain a copy.</li>
-          <li className="text-light-text-secondary dark:text-dark-text-secondary">Right to rectify any inaccuracies in your data.</li>
+          <li className="text-light-text-secondary dark:text-dark-text-secondary">
+            Right to access your data and obtain a copy.
+          </li>
+          <li className="text-light-text-secondary dark:text-dark-text-secondary">
+            Right to rectify any inaccuracies in your data.
+          </li>
           <li className="text-light-text-secondary dark:text-dark-text-secondary">
             Right to request the deletion of your data (right to be forgotten).
           </li>
