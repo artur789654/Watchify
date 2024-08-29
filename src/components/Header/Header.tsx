@@ -1,34 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
 import logoLight from "../../assets/images/logoLight.png";
 import logoDark from "../../assets/images/logoDark.png";
-import { useEffect } from "react";
-import {
-  getFromLocalStorage,
-  setToLocalStorage,
-} from "../../helpers/storageUtils";
 import {
   FaBars,
   FaTimes,
   FaSearch,
-  FaSun,
-  FaMoon,
   FaUser,
   FaHome,
 } from "react-icons/fa";
-import { MdOutlineLogin, MdLogout } from "react-icons/md";
+import { MdOutlineLogin } from "react-icons/md";
 import useToggle from "../../hooks/useToggle";
-
+import ThemeBtn from "../ThemeBtn/ThemeBtn";
+import { useTheme } from "../../contexts/themeContext";
 function Header() {
-  const savedTheme = getFromLocalStorage("theme") === "dark";
-  const [isDarkMode, setIsDarkMode] = useToggle(savedTheme);
+  const { theme } = useTheme();
   // const [isAuthenticated, setIsAuthenticated] =useState(false);
   const [isMenuOpen, setIsMenuOpen] = useToggle(false);
   const location = useLocation();
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-    setToLocalStorage("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
 
   const getNavLinkClass = (path: string) => {
     return location.pathname === path
@@ -42,7 +30,7 @@ function Header() {
         <div className="branding w-20 ml-4">
           <Link to="/" aria-label="Home link and Logo">
             <img
-              src={isDarkMode ? logoDark : logoLight}
+              src={theme==='dark' ? logoDark : logoLight}
               alt="Watchify logo"
               width="64px"
               height="64px"
@@ -51,25 +39,7 @@ function Header() {
         </div>
 
         <div className="flex space-x-6 items-center">
-          <div className="text-center text-lg font-light text-light-text-main dark:text-dark-text-main">
-            <label className="inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isDarkMode}
-                onChange={setIsDarkMode}
-                className="sr-only peer"
-                aria-label="switcher theme toggle"
-              />
-              <div className="px-1 relative w-11 h-6 bg-light-secondary dark:bg-dark-secondary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-light-link-hover dark:peer-focus:ring-dark-link-hover rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-slate-100 after:border-light-text-secondary dark:after:border-dark-text-secondary after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-light-link-main dark:peer-checked:bg-dark-link-main flex items-center justify-between p-0.5">
-                <span className="text-sm text-light-link-hover transition-transform duration-300 peer-checked:transform peer-checked:scale-0">
-                  <FaSun />
-                </span>
-                <span className="text-sm text-dark-link-hover transition-transform duration-300 peer-checked:transform peer-checked:scale-100">
-                  <FaMoon />
-                </span>
-              </div>
-            </label>
-          </div>
+         <ThemeBtn/>
 
           <button
             className="text-light-text-main dark:text-dark-text-main md:hidden"

@@ -15,13 +15,10 @@ module.exports = {
         "light-link-main": "#000000", // Основний колір лінків
         "light-link-hover": "#333333", // Ховер/фокус лінків
         "light-link-active": "#666666", // Активний стан лінків
-        "light-block-bg": "#FFFFFF", // Фон блоків
-        "light-block-border": "#E5E7EB", // Кордон блоків
-        "light-nav-bg": "#1F2937", // Фон навігаційного меню
-        "light-icon": "#374151", // Іконки та елементи інтерфейсу
+       
 
-        "dark-head-foot": "#181818",
-        "dark-primary": "#1C1C1C", // Фон сайту
+        "dark-head-foot": "#1C1C1C",
+        "dark-primary": "#181818", // Фон сайту
         "dark-secondary": "#121212", // Альтернативний фон
         "dark-text-main": "#E5E7EB", // Основний текст
         "dark-text-secondary": "#9CA3AF", // Вторинний текст
@@ -31,10 +28,6 @@ module.exports = {
         "dark-link-main": "#FFFFFF", // Основний колір лінків
         "dark-link-hover": "#CCCCCC", // Ховер/фокус лінків
         "dark-link-active": "#999999", // Активний стан лінків
-        "dark-block-bg": "#1F1F1F", // Фон блоків
-        "dark-block-border": "#333333", // Кордон блоків
-        "dark-nav-bg": "#111827", // Фон навігаційного меню
-        "dark-icon": "#9CA3AF", // Іконки та елементи інтерфейсу
       },
     },
   },

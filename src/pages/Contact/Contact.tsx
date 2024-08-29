@@ -1,6 +1,6 @@
 function Abuse(){
   return(
-    <>About page</>
+    <>Contact  page</>
   )
 }
 
