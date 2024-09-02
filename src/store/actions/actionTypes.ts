@@ -1,3 +1,5 @@
+import { Movie, TVShow } from "../../types/media";
+
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
@@ -14,7 +16,7 @@ interface FetchBannerMovieRequestAction {
 }
 interface FetchBannerMovieSuccessAction {
   type: typeof FETCH_BANNER_MOVIE_SUCCESS;
-  payload: any;
+  payload: Movie;
 }
 interface FetchBannerMovieFailureAction {
   type: typeof FETCH_BANNER_MOVIE_FAILURE;
@@ -36,7 +38,7 @@ export interface FetchPopularMoviesRequest {
 
 export interface FetchPopularMoviesSuccess {
   type: typeof FETCH_POPULAR_MOVIES_SUCCESS;
-  payload: any[];
+  payload: Movie[];
 }
 
 export interface FetchPopularMoviesFailure {
@@ -59,7 +61,7 @@ export interface FetchTopRatedMoviesRequest {
 
 export interface FetchTopRatedMoviesSuccess {
   type: typeof FETCH_TOP_RATED_MOVIES_SUCCESS;
-  payload: any[];
+  payload: Movie[];
 }
 
 export interface FetchTopRatedMoviesFailure {
@@ -82,7 +84,7 @@ export interface FetchUpcomingMoviesRequest {
 
 export interface FetchUpcomingMoviesSuccess {
   type: typeof FETCH_UPCOMING_MOVIES_SUCCESS;
-  payload: any[];
+  payload: Movie[];
 }
 
 export interface FetchUpcomingMoviesFailure {
@@ -108,7 +110,7 @@ export interface FetchTopRatedTvShowRequest {
 
 export interface FetchTopRatedTvShowSuccess {
   type: typeof FETCH_TOP_RATED_TV_SHOW_SUCCESS;
-  payload: any[];
+  payload: TVShow[];
 }
 
 export interface FetchTopRatedTvShowFailure {
@@ -131,7 +133,7 @@ export interface FetchPopularTvShowRequest {
 
 export interface FetchPopularTvShowSuccess {
   type: typeof FETCH_POPULAR_TV_SHOW_SUCCESS;
-  payload: any[];
+  payload: TVShow[];
 }
 
 export interface FetchPopularTvShowFailure {

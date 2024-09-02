@@ -1,3 +1,4 @@
+import { TVShow } from "../../types/media";
 import {
   FETCH_POPULAR_TV_SHOW_FAILURE,
   FETCH_POPULAR_TV_SHOW_REQUEST,
@@ -7,7 +8,7 @@ import {
 
 interface PopularTvShowState {
   loading: boolean;
-  movies: any[] | null;
+  movies: TVShow[] | null;
   error: string | null;
 }
 

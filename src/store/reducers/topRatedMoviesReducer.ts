@@ -1,3 +1,4 @@
+import { Movie } from "../../types/media";
 import {
   FETCH_TOP_RATED_MOVIES_REQUEST,
   FETCH_TOP_RATED_MOVIES_SUCCESS,
@@ -7,7 +8,7 @@ import {
 
 interface TopRatedMoviesState {
   loading: boolean;
-  movies: any[] | null;
+  movies: Movie[] | null;
   error: string | null;
 }
 

@@ -9,7 +9,7 @@ import { fetchTopRatedMovies } from "../../store/actions/topRatedMoviesActions";
 import { fetchUpcomigMovies } from "../../store/actions/upcomingMoviesActions";
 import { fetchPopularTvShow } from "../../store/actions/popularTvShowActions";
 import { fetchTopRatedTvShow } from "../../store/actions/topRatedTvShowActions";
-function Home() {
+const Home: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const popularMovies = useSelector(
@@ -26,9 +26,8 @@ function Home() {
     (state: RootState) => state.popularTvShow.movies
   );
   const topRatedTvShow = useSelector(
-    (state: RootState) => state.topRatedMovies.movies
+    (state: RootState) => state.topRatedTvShow.movies
   );
-  console.log("tvshow:", popularTvShow);
   useEffect(() => {
     dispatch(fetchPopularMovies());
     dispatch(fetchTopRatedMovies());
@@ -36,7 +35,6 @@ function Home() {
     dispatch(fetchPopularTvShow());
     dispatch(fetchTopRatedTvShow());
   }, [dispatch]);
-
   return (
     <>
       <Banner />
@@ -50,6 +48,6 @@ function Home() {
       </div>
     </>
   );
-}
+};
 
 export default Home;

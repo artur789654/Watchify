@@ -7,7 +7,6 @@ import {
   UpcomingMoviesActionsTypes,
 } from "./actionTypes";
 import {
-  getFromLocalStorage,
   setToLocalStorage,
 } from "../../helpers/storageUtils";
 import axios from "axios";
@@ -17,28 +16,26 @@ import {
   TMDB_API_KEY,
   TMDB_BASE_URL,
 } from "../../helpers/apiConstants";
+import { getCachedData } from "../../helpers/getCachedData";
+import { Movie } from "../../types/media";
 
 const CACHE_KEY = "upcomigMovies";
 const CACHE_TIME_KEY = "upcomingMoviesTimestap";
-const CACHE_DURATION =24 * 60 * 60 * 1000;
 
 export const fetchUpcomigMovies =
   (
     page: number = 1
   ): ThunkAction<void, RootState, unknown, UpcomingMoviesActionsTypes> =>
-  async (dispatch, getState) => {
-    const cachedMovies = getFromLocalStorage(CACHE_KEY);
-    const cahedTime = getFromLocalStorage(CACHE_TIME_KEY);
-    if (cachedMovies && cahedTime) {
-      const timeDiff = Date.now() - parseInt(cahedTime, 10);
-      if (timeDiff < CACHE_DURATION) {
+    async (dispatch) => {
+      const cachedData = getCachedData<Movie>(CACHE_KEY, CACHE_TIME_KEY);
+  
+      if (cachedData) {
         dispatch({
           type: FETCH_UPCOMING_MOVIES_SUCCESS,
-          payload: JSON.parse(cachedMovies),
+          payload: cachedData,
         });
         return;
       }
-    }
     dispatch({ type: FETCH_UPCOMING_MOVIES_REQUEST });
     try {
       const response = await axios.get(
