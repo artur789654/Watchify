@@ -150,7 +150,7 @@ export interface UserData {
   name: string;
   email: string;
   password: string;
-  isAuthenticated?:boolean;
+  isAuthenticated?: boolean;
 }
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
@@ -201,3 +201,14 @@ export type AuthActionTypes =
   | LoginSuccessAction
   | LoginFailureAction
   | LogoutAction;
+
+export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAILURE = "RESET_PASSWORD_FAILURE";
+
+export const SEND_PASSWORD_RESET_EMAIL_REQUEST =
+  "SEND_PASSWORD_RESET_EMAIL_REQUEST";
+export const SEND_PASSWORD_RESET_EMAIL_SUCCESS =
+  "SEND_PASSWORD_RESET_EMAIL_SUCCESS";
+export const SEND_PASSWORD_RESET_EMAIL_FAILURE =
+  "SEND_PASSWORD_RESET_EMAIL_FAILURE";

@@ -27,6 +27,8 @@ import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
 import Error from "./pages/Error/Error";
 import { restoreAuth } from "./store/actions/authActions";
 
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -69,6 +71,11 @@ function App() {
             <Route path="/status" element={<StatusPage />} />
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/investor-relations" element={<InvestorRelations />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/reset-password/:oobCode"
+              element={<ResetPassword />}
+            />
             <Route path="/404" element={<Error />} />
             <Route path="*" element={<Navigate to={"/404"} />} />
           </Routes>

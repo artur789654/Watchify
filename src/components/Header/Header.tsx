@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { logout } from "../../store/actions/authActions";
+
 const Header: React.FC = () => {
   const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useToggle(false);
@@ -96,7 +97,7 @@ const Header: React.FC = () => {
                     location.pathname === "/profile" ? "page" : undefined
                   }>
                   <FaUser />
-                  <span>{user?.name}</span>
+                  <span>{user?.displayName}</span>
                 </Link>
               )}
               <Link

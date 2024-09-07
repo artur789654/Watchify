@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -10,13 +9,14 @@ import { Link } from "react-router-dom";
 
 const Auth: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error, isAuthenticated } = useSelector(
     (state: RootState) => state.auth
   );
 
-  const registerValidationShema = yup.object({
+  const registerValidationSchema = yup.object({
     name: yup
       .string()
       .min(2, "Name must be at least 2 characters long")
@@ -28,6 +28,10 @@ const Auth: React.FC = () => {
     password: yup
       .string()
       .min(6, "The password must contain at least 6 characters")
+      .matches(/[A-Z]/, "Password must contain an uppercase letter")
+      .matches(/[a-z]/, "Password must contain a lowercase letter")
+      .matches(/[0-9]/, "Password must contain a number")
+      .matches(/[\W_]/, "Password must contain a special character")
       .required("Password is required"),
     confirmPassword: yup
       .string()
@@ -43,7 +47,7 @@ const Auth: React.FC = () => {
       .required(),
   });
 
-  const loginValidationShema = yup.object({
+  const loginValidationSchema = yup.object({
     email: yup
       .string()
       .email("Invalid email format")
@@ -51,6 +55,10 @@ const Auth: React.FC = () => {
     password: yup
       .string()
       .min(6, "The password must contain at least 6 characters")
+      .matches(/[A-Z]/, "Password must contain an uppercase letter")
+      .matches(/[a-z]/, "Password must contain a lowercase letter")
+      .matches(/[0-9]/, "Password must contain a number")
+      .matches(/[\W_]/, "Password must contain a special character")
       .required("Password is required"),
   });
 
@@ -64,13 +72,15 @@ const Auth: React.FC = () => {
       privacy: false,
     },
     validationSchema: isRegistering
-      ? registerValidationShema
-      : loginValidationShema,
+      ? registerValidationSchema
+      : loginValidationSchema,
     onSubmit: (values) => {
       if (isRegistering) {
-        dispatch(register(values.name, values.email, values.password));
+        dispatch(
+          register(values.name, values.email, values.password, rememberMe)
+        );
       } else {
-        dispatch(login(values.email, values.password));
+        dispatch(login(values.email, values.password, rememberMe));
       }
     },
     validateOnMount: true,
@@ -183,7 +193,9 @@ const Auth: React.FC = () => {
                   htmlFor="terms"
                   className="text-light-text-secondary dark:text-dark-text-secondary cursor-pointer">
                   I agree to the{" "}
-                  <Link to="/terms-of-service" className="text-blue-500 hover:underline">
+                  <Link
+                    to="/terms-of-service"
+                    className="inline-block transform transition-transform duration-300 hover:scale-105 text-light-link-main dark:text-dark-link-main hover:text-light-link-hover hover:dark:text-dark-link-hover">
                     Terms of Service
                   </Link>
                 </label>
@@ -202,7 +214,9 @@ const Auth: React.FC = () => {
                   htmlFor="privacy"
                   className="text-light-text-secondary dark:text-dark-text-secondary cursor-pointer">
                   I agree to the{" "}
-                  <Link to="/privacy-policy" className="text-blue-500 hover:underline">
+                  <Link
+                    to="/privacy-policy"
+                    className="inline-block transform transition-transform duration-300 hover:scale-105 text-light-link-main dark:text-dark-link-main hover:text-light-link-hover hover:dark:text-dark-link-hover">
                     Privacy Policy
                   </Link>
                 </label>
@@ -219,12 +233,23 @@ const Auth: React.FC = () => {
               ) : null}
             </div>
           )}
+          {!isRegistering && (
+            <div>
+              <Link
+                to="/reset-password"
+                className="inline-block transform transition-transform duration-300 hover:scale-105 text-light-link-main dark:text-dark-link-main hover:text-light-link-hover hover:dark:text-dark-link-hover">
+                Forgot your password?
+              </Link>
+            </div>
+          )}
           <div className="flex items-center">
             <input
               type="checkbox"
               name="rememberMe"
               id="rememberMe"
               className="mr-2"
+              onChange={(e) => setRememberMe(e.target.checked)}
+              checked={rememberMe}
             />
             <label
               htmlFor="rememberMe"
@@ -235,14 +260,16 @@ const Auth: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="bg-light-button-main dark:bg-dark-button-main hover:bg-light-button-hover dark:hover:bg-dark-button-hover px-4 py-2 rounded-md text-dark-text-main">
+            className="w-full transition-bg duration-300 bg-light-button-main dark:bg-dark-button-main hover:bg-light-button-hover dark:hover:bg-dark-button-hover px-4 py-2 rounded-md text-dark-text-main">
             {loading ? "Loading..." : isRegistering ? "Register" : "Login"}
           </button>
         </form>
         <button
           onClick={() => setIsRegistering(!isRegistering)}
-          className="inline-block font-medium transform transition-transform duration-300 hover:scale-105 text-light-link-main hover:text-light-link-hover dark:text-dark-link-main dark:hover:text-dark-link-hover">
-          {isRegistering ? "Have an Account? Sign-in" : "Create an Account"}
+          className="inline-block transform transition-transform duration-300 hover:scale-105 text-light-link-main dark:text-dark-link-main hover:text-light-link-hover hover:dark:text-dark-link-hover">
+          {isRegistering
+            ? "Already have an account? Login"
+            : "Don't have an account? Register"}
         </button>
       </div>
     </div>
