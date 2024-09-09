@@ -7,7 +7,7 @@ import { RootState } from "./store/index";
 import NewPage from "../src/pages/NewPage/NewPage";
 import Header from "./components/Header/Header";
 import { ThemeProvider } from "./contexts/themeContext";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Search from "./pages/Search/Search";
 import Profile from "./pages/Profile/Profile";
 import Auth from "./pages/Auth/Auth";
@@ -24,6 +24,7 @@ import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import StatusPage from "./pages/StatusPage/StatusPage";
 import Partnership from "./pages/Partnership/Partnership";
 import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
+import Error from "./pages/Error/Error";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -63,6 +64,8 @@ function App() {
             <Route path="/status" element={<StatusPage />} />
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/investor-relations" element={<InvestorRelations />} />
+            <Route path="/404" element={<Error/>}/>
+            <Route path ="*" element={<Navigate to={'/404'}/>}/>
           </Routes>
         </main>
         <Footer />

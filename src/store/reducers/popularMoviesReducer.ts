@@ -1,3 +1,4 @@
+import { Movie } from "../../types/media";
 import {
   FETCH_POPULAR_MOVIES_FAILURE,
   FETCH_POPULAR_MOVIES_REQUEST,
@@ -7,7 +8,7 @@ import {
 
 interface PopularMoviesState {
   loading: boolean;
-  movies: any[] | null;
+  movies: Movie[] | null;
   error: string | null;
 }
 

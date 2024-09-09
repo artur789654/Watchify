@@ -14,7 +14,7 @@ interface MovieListProps {
   movies: any[];
 }
 
-const MovieSlider: React.FC<MovieListProps> = ({title, movies}) => {
+const MovieSlider: React.FC<MovieListProps> = ({ title, movies }) => {
   const swiperRef = useRef<any>(null);
 
   const [SwiperComponent, setSwiperComponent] = useState<any>(null);
@@ -39,7 +39,9 @@ const MovieSlider: React.FC<MovieListProps> = ({title, movies}) => {
           <SliderBtn swiperRef={swiperRef} />
         </div>
         <div>
-          <Link to="/" className="block font-semibold text-light-link-main  hover:text-light-link-hover active:text-light-link-active dark:text-dark-link-main dark:hover:text-dark-link-hover dark:active:text-dark-link-active hover:underline transform-translate duration-300 hover:scale-105 ">
+          <Link
+            to="/"
+            className="block font-semibold text-light-link-main  hover:text-light-link-hover active:text-light-link-active dark:text-dark-link-main dark:hover:text-dark-link-hover dark:active:text-dark-link-active hover:underline transform-translate duration-300 hover:scale-105 ">
             View All...
           </Link>
         </div>
@@ -57,7 +59,7 @@ const MovieSlider: React.FC<MovieListProps> = ({title, movies}) => {
           640: {
             slidesPerView: 3,
           },
-          400: {
+          420: {
             slidesPerView: 2,
           },
           0: {
@@ -80,6 +82,9 @@ const MovieSlider: React.FC<MovieListProps> = ({title, movies}) => {
               <h3 className="px-2 text-center text-sm font-semibold mt-2 group-hover:text-light-text-secondary dark:group-hover:text-dark-text-secondary transition-colors duration-300">
                 {movie.title || movie.name}
               </h3>
+              <p className="text-sm text-light-text-secondary dark:text-dark-text-secondary mt-1">
+                Rating: {movie.vote_average.toFixed(2)}/10
+              </p>
             </Link>
           </SwiperSlide>
         ))}
