@@ -3,10 +3,20 @@ import thunk, { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import testReducer from "./reducers/testReducer";
 import bannerReducer from "./reducers/bannerReducer";
+import popularMoviesReducer from "./reducers/popularMoviesReducer";
+import topRatedMoviesReducer from "./reducers/topRatedMoviesReducer";
+import upcomingMoviesReducer from "./reducers/upcomingMoviesReducer";
+import popularTvShowReducer from "./reducers/popularTvShowReducer";
+import topRatedTvShowReducer from "./reducers/topRatedTvShowReducer";
 
 const rootReducer = combineReducers({
   yourStateSlice: testReducer,
   banner: bannerReducer,
+  popularMovies: popularMoviesReducer,
+  topRatedMovies: topRatedMoviesReducer,
+  upcomingMovies: upcomingMoviesReducer,
+  popularTvShow: popularTvShowReducer,
+  topRatedTvShow: topRatedTvShowReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
