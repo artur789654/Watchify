@@ -13,3 +13,8 @@ export interface Movie extends BaseMedia {
 export interface TVShow extends BaseMedia {
   name: string;
 }
+
+export interface MediaResponse<T> {
+  media: T[];
+  totalPages: number;
+}

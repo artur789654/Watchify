@@ -9,6 +9,9 @@ import upcomingMoviesReducer from "./reducers/upcomingMoviesReducer";
 import popularTvShowReducer from "./reducers/popularTvShowReducer";
 import topRatedTvShowReducer from "./reducers/topRatedTvShowReducer";
 import { authReducer } from "./reducers/authReducer";
+import watchListReducer from "./reducers/watchListReducer";
+import movieReducer from "./reducers/movieReducer";
+import tvReducer from "./reducers/tvReducer";
 
 const rootReducer = combineReducers({
   yourStateSlice: testReducer,
@@ -19,6 +22,9 @@ const rootReducer = combineReducers({
   popularTvShow: popularTvShowReducer,
   topRatedTvShow: topRatedTvShowReducer,
   auth: authReducer,
+  watchList: watchListReducer,
+  movie: movieReducer,
+  tv:tvReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

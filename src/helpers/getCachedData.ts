@@ -12,7 +12,12 @@ export const getCachedData = <T extends BaseMedia>(
   if (cachedData && cachedTime) {
     const timeDiff = Date.now() - parseInt(cachedTime, 10);
     if (timeDiff < cacheDuration) {
-      return JSON.parse(cachedData) as T[];
+      try {
+        return JSON.parse(cachedData) as T[];
+      } catch (e) {
+        console.error('Failed to parse cached data:', e);
+        return null;
+      }
     }
   }
   return null;

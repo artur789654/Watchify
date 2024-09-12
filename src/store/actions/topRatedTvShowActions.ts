@@ -6,9 +6,7 @@ import {
   FETCH_TOP_RATED_TV_SHOW_SUCCESS,
   TopRatedTvShowActionTypes,
 } from "./actionTypes";
-import {
-  setToLocalStorage,
-} from "../../helpers/storageUtils";
+import { setToLocalStorage } from "../../helpers/storageUtils";
 import axios from "axios";
 import {
   API_TIMEOUT,
@@ -24,35 +22,51 @@ const CACHE_TIME_KEY = "topRatedTvShowTimestap";
 
 export const fetchTopRatedTvShow =
   (
-    page: number = 1
+    page: number = 1,
+    sortBy: string = "vote_average.desc",
+    genreId?: number
   ): ThunkAction<void, RootState, unknown, TopRatedTvShowActionTypes> =>
-    async (dispatch) => {
+  async (dispatch) => {
+    if (page === 1 && sortBy === "vote_average.desc") {
       const cachedData = getCachedData<TVShow>(CACHE_KEY, CACHE_TIME_KEY);
-  
+
       if (cachedData) {
         dispatch({
           type: FETCH_TOP_RATED_TV_SHOW_SUCCESS,
-          payload: cachedData,
+          payload: { media: cachedData, totalPages: 1 },
         });
         return;
       }
+    }
+
     dispatch({ type: FETCH_TOP_RATED_TV_SHOW_REQUEST });
     try {
       const response = await axios.get(
         `${TMDB_BASE_URL}${TOP_RATED_TV_ENDPOINT}`,
         {
-          params: { api_key: TMDB_API_KEY, page },
+          params: {
+            api_key: TMDB_API_KEY,
+            page,
+            sort_by: sortBy,
+            with_genres: genreId || undefined,
+          },
           timeout: API_TIMEOUT,
         }
       );
 
       const movies = response.data.results;
-      setToLocalStorage(CACHE_KEY, JSON.stringify(movies));
-      setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
-
+      const totalPages = response.data.total_pages;
+      // if (page === 1) {
+      //   setToLocalStorage(CACHE_KEY, JSON.stringify(movies));
+      //   setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
+      // }
+      
       dispatch({
         type: FETCH_TOP_RATED_TV_SHOW_SUCCESS,
-        payload: movies,
+        payload: {
+          media: movies,
+          totalPages,
+        },
       });
     } catch (error: any) {
       dispatch({

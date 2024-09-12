@@ -25,9 +25,11 @@ import StatusPage from "./pages/StatusPage/StatusPage";
 import Partnership from "./pages/Partnership/Partnership";
 import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
 import Error from "./pages/Error/Error";
+import Media from "./pages/Media/Media";
 import { restoreAuth } from "./store/actions/authActions";
 
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import { fetchWatchList } from "./store/actions/watchListActions";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,6 +39,7 @@ function App() {
     (state: RootState) => state.yourStateSlice.loading
   );
   const error = useSelector((state: RootState) => state.yourStateSlice.error);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -45,6 +48,12 @@ function App() {
   useEffect(() => {
     dispatch(restoreAuth());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchWatchList(user.uid));
+    }
+  }, [dispatch, user]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -72,6 +81,11 @@ function App() {
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/investor-relations" element={<InvestorRelations />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/movies/top-rated/:page" element={<Media />} />
+            <Route path="/movies/popular/:page" element={<Media />} />
+            <Route path="/movies/upcoming/:page" element={<Media />} />
+            <Route path="/tv/popular/:page" element={<Media />} />
+            <Route path="/tv/top-rated/:page" element={<Media />} />
             <Route
               path="/reset-password/:oobCode"
               element={<ResetPassword />}

@@ -1,54 +1,55 @@
 import { TVShow } from "../../types/media";
 import {
-  FETCH_TOP_RATED_TV_SHOW_FAILURE,
-  FETCH_TOP_RATED_TV_SHOW_REQUEST,
-  FETCH_TOP_RATED_TV_SHOW_SUCCESS,
-  TopRatedTvShowActionTypes,
+  FETCH_TV_FAILURE,
+  FETCH_TV_REQUEST,
+  FETCH_TV_SUCCESS,
+  TvActionTypes,
 } from "../actions/actionTypes";
 
-interface TopRatedTvShowState {
+interface TvState {
   loading: boolean;
-  movies: TVShow[] | null;
+  movies: TVShow[];
   totalPages: number;
   error: string | null;
 }
 
-const initialState: TopRatedTvShowState = {
+const initialState: TvState = {
   loading: false,
-  movies: null,
+  movies: [],
   totalPages: 0,
   error: null,
 };
 
-const topRatedTvShowReducer = (
+const tvReducer = (
   state = initialState,
-  actions: TopRatedTvShowActionTypes
-): TopRatedTvShowState => {
+  actions: TvActionTypes
+): TvState => {
   switch (actions.type) {
-    case FETCH_TOP_RATED_TV_SHOW_REQUEST:
+    case FETCH_TV_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FETCH_TOP_RATED_TV_SHOW_SUCCESS:
+    case FETCH_TV_SUCCESS:
       return {
         ...state,
+        loading: false,
         movies: actions.payload.media,
         totalPages: actions.payload.totalPages,
-        loading: false,
         error: null,
       };
-    case FETCH_TOP_RATED_TV_SHOW_FAILURE:
+    case FETCH_TV_FAILURE:
       return {
         ...state,
-        movies: null,
         loading: false,
-        error: actions.payload,
+        movies: [],
+        totalPages: 0,
+        error: actions.payload.error,
       };
     default:
       return state;
   }
 };
 
-export default topRatedTvShowReducer;
+export default tvReducer;
