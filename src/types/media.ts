@@ -4,6 +4,7 @@ export interface BaseMedia {
   vote_average: number;
   genre_ids: number;
   overview: string;
+  totalPages: number;
 }
 
 export interface Movie extends BaseMedia {
@@ -15,6 +16,11 @@ export interface TVShow extends BaseMedia {
 }
 
 export interface MediaResponse<T> {
-  media: T[];
+  movies: T[];
   totalPages: number;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
 }

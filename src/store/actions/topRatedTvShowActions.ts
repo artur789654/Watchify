@@ -33,7 +33,10 @@ export const fetchTopRatedTvShow =
       if (cachedData) {
         dispatch({
           type: FETCH_TOP_RATED_TV_SHOW_SUCCESS,
-          payload: { media: cachedData, totalPages: 1 },
+          payload: {
+            media: cachedData.movies,
+            totalPages: cachedData.totalPages,
+          },
         });
         return;
       }
@@ -56,11 +59,13 @@ export const fetchTopRatedTvShow =
 
       const movies = response.data.results;
       const totalPages = response.data.total_pages;
-      // if (page === 1) {
-      //   setToLocalStorage(CACHE_KEY, JSON.stringify(movies));
-      //   setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
-      // }
-      
+
+      if (page === 1) {
+        const cachedData = { movies, totalPages };
+        setToLocalStorage(CACHE_KEY, JSON.stringify(cachedData));
+        setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
+      }
+
       dispatch({
         type: FETCH_TOP_RATED_TV_SHOW_SUCCESS,
         payload: {

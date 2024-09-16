@@ -8,7 +8,7 @@ import {
 
 interface TvState {
   loading: boolean;
-  movies: TVShow[];
+  movies: TVShow[] | null;
   totalPages: number;
   error: string | null;
 }
@@ -20,10 +20,7 @@ const initialState: TvState = {
   error: null,
 };
 
-const tvReducer = (
-  state = initialState,
-  actions: TvActionTypes
-): TvState => {
+const tvReducer = (state = initialState, actions: TvActionTypes): TvState => {
   switch (actions.type) {
     case FETCH_TV_REQUEST:
       return {

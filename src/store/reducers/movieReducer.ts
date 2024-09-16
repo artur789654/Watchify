@@ -8,7 +8,7 @@ import {
 
 interface MovieState {
   loading: boolean;
-  movies: Movie[];
+  movies: Movie[] | null;
   totalPages: number;
   error: string | null;
 }

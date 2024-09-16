@@ -9,10 +9,11 @@ import "swiper/css/pagination";
 import SliderBtn from "./SliderBtn";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
+import { Movie, TVShow } from "../../types/media";
 
 interface MovieListProps {
   title: string;
-  movies: any[];
+  movies: Array<Movie | TVShow>;
   link: string;
 }
 
@@ -33,7 +34,7 @@ const MovieSlider: React.FC<MovieListProps> = ({ title, movies, link }) => {
   const { Swiper, SwiperSlide, Navigation, Pagination, A11y } = SwiperComponent;
 
   return (
-    <div className="container mx-auto p-6 bg-light-secondary dark:bg-dark-secondary rounded-md my-4">
+    <div className="container mx-auto py-6 px-4 bg-light-secondary dark:bg-dark-secondary rounded-md my-4">
       <div className="flex flex-col md:flex-row justify-between items-center mb-4">
         <div className="flex items-center mb-4 md:mb-0">
           <h2 className="text-2xl font-bold">{title}</h2>
@@ -63,10 +64,10 @@ const MovieSlider: React.FC<MovieListProps> = ({ title, movies, link }) => {
           1024: {
             slidesPerView: 4,
           },
-          640: {
+          640:{
             slidesPerView: 3,
           },
-          420: {
+          400: {
             slidesPerView: 2,
           },
           0: {
@@ -75,7 +76,7 @@ const MovieSlider: React.FC<MovieListProps> = ({ title, movies, link }) => {
         }}
         className="relative">
         {movies?.map((movie) => (
-          <SwiperSlide key={movie.id} className="p-3">
+          <SwiperSlide key={movie.id} className="p-3 sm:!block !flex justify-center items-center">
             <Card media={movie} />
           </SwiperSlide>
         ))}

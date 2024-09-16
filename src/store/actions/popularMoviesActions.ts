@@ -34,8 +34,8 @@ export const fetchPopularMovies =
         dispatch({
           type: FETCH_POPULAR_MOVIES_SUCCESS,
           payload: {
-            media: cachedData,
-            totalPages: 1,
+            media: cachedData.movies,
+            totalPages: cachedData.totalPages,
           },
         });
         return;
@@ -45,23 +45,27 @@ export const fetchPopularMovies =
     dispatch({ type: FETCH_POPULAR_MOVIES_REQUEST });
 
     try {
-      const response = await axios.get(`${TMDB_BASE_URL}${POPULAR_MOVIES_ENDPOINT}`, {
-        params: {
-          api_key: TMDB_API_KEY,
-          page,
-          sort_by: sortBy,
-          with_genres: genreId || undefined,
-        },
-        timeout: API_TIMEOUT,
-      });
+      const response = await axios.get(
+        `${TMDB_BASE_URL}${POPULAR_MOVIES_ENDPOINT}`,
+        {
+          params: {
+            api_key: TMDB_API_KEY,
+            page,
+            sort_by: sortBy,
+            with_genres: genreId || undefined,
+          },
+          timeout: API_TIMEOUT,
+        }
+      );
 
       const movies = response.data.results;
       const totalPages = response.data.total_pages;
 
-      // if (page === 1) {
-      //   setToLocalStorage(CACHE_KEY, JSON.stringify(movies));
-      //   setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
-      // }
+      if (page === 1) {
+        const cachedData = { movies, totalPages };
+        setToLocalStorage(CACHE_KEY, JSON.stringify(cachedData));
+        setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
+      }
 
       dispatch({
         type: FETCH_POPULAR_MOVIES_SUCCESS,

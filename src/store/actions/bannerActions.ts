@@ -48,7 +48,6 @@ export const fetchBannerMovie =
           timeout: API_TIMEOUT,
         }
       );
-      console.log("API Response:", response.data);
       const movie = response.data.results[0];
       setToLocalStorage(CACHE_KEY, JSON.stringify(movie));
       setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());

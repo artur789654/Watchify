@@ -1,9 +1,8 @@
-import { Movie, TVShow } from "../../types/media";
+import { Genre, Movie, TVShow } from "../../types/media";
 
 export const FETCH_START = "FETCH_START";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
-
 
 export const FETCH_BANNER_MOVIE_REQUEST = "FETCH_BANNER_MOVIE_REQUEST";
 export const FETCH_BANNER_MOVIE_SUCCESS = "FETCH_BANNER_MOVIE_SUCCESS";
@@ -117,10 +116,10 @@ export interface FetchTopRatedTvShowRequest {
 
 export interface FetchTopRatedTvShowSuccess {
   type: typeof FETCH_TOP_RATED_TV_SHOW_SUCCESS;
-  payload:{
+  payload: {
     media: TVShow[];
     totalPages: number;
-  }; 
+  };
 }
 
 export interface FetchTopRatedTvShowFailure {
@@ -146,7 +145,7 @@ export interface FetchPopularTvShowSuccess {
   payload: {
     media: TVShow[];
     totalPages: number;
-  }; 
+  };
 }
 
 export interface FetchPopularTvShowFailure {
@@ -230,9 +229,9 @@ export const ADD_TO_WATCHLIST = "ADD_TO_WATCHLIST";
 export const REMOVE_FROM_WATCHLIST = "REMOVE_FROM_WATCHLIST";
 export const SET_WATCHLIST = "SET_WATCHLIST";
 
-export const FETCH_MOVIE_REQUEST = 'FETCH_MOVIE_REQUEST';
-export const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS';
-export const FETCH_MOVIE_FAILURE = 'FETCH_MOVIE_FAILURE';
+export const FETCH_MOVIE_REQUEST = "FETCH_MOVIE_REQUEST";
+export const FETCH_MOVIE_SUCCESS = "FETCH_MOVIE_SUCCESS";
+export const FETCH_MOVIE_FAILURE = "FETCH_MOVIE_FAILURE";
 
 interface FetchMovieRequestAction {
   type: typeof FETCH_MOVIE_REQUEST;
@@ -257,10 +256,9 @@ export type MovieActionTypes =
   | FetchMovieSuccessAction
   | FetchMovieFailureAction;
 
-
-  export const FETCH_TV_REQUEST = 'FETCH_TV_REQUEST';
-export const FETCH_TV_SUCCESS = 'FETCH_TV_SUCCESS';
-export const FETCH_TV_FAILURE = 'FETCH_TV_FAILURE';
+export const FETCH_TV_REQUEST = "FETCH_TV_REQUEST";
+export const FETCH_TV_SUCCESS = "FETCH_TV_SUCCESS";
+export const FETCH_TV_FAILURE = "FETCH_TV_FAILURE";
 interface FetchTvRequestAction {
   type: typeof FETCH_TV_REQUEST;
 }
@@ -283,3 +281,49 @@ export type TvActionTypes =
   | FetchTvRequestAction
   | FetchTvSuccessAction
   | FetchTvFailureAction;
+
+export const FETCH_GENRES_MOVIES_REQUEST = "FETCH_GENRES_MOVIES_REQUEST";
+export const FETCH_GENRES_MOVIES_SUCCESS = "FETCH_GENRES_MOVIES_SUCCESS";
+export const FETCH_GENRES_MOVIES_FAILURE = "FETCH_GENRES_MOVIES_FAILURE";
+
+interface FetchGenresMoviesRequestAction {
+  type: typeof FETCH_GENRES_MOVIES_REQUEST;
+}
+
+interface FetchGenresMoviesSuccessAction {
+  type: typeof FETCH_GENRES_MOVIES_SUCCESS;
+  payload: Genre[];
+}
+
+interface FetchGenresMoviesFailureAction {
+  type: typeof FETCH_GENRES_MOVIES_FAILURE;
+  payload: string;
+}
+
+export type GenreMoviesActionTypes =
+  | FetchGenresMoviesRequestAction
+  | FetchGenresMoviesSuccessAction
+  | FetchGenresMoviesFailureAction;
+
+export const FETCH_GENRES_TV_REQUEST = "FETCH_GENRES_TV_REQUEST";
+export const FETCH_GENRES_TV_SUCCESS = "FETCH_GENRES_TV_SUCCESS";
+export const FETCH_GENRES_TV_FAILURE = "FETCH_GENRES_TV_FAILURE";
+
+interface FetchGenresTvRequestAction {
+  type: typeof FETCH_GENRES_TV_REQUEST;
+}
+
+interface FetchGenresTvSuccessAction {
+  type: typeof FETCH_GENRES_TV_SUCCESS;
+  payload: Genre[];
+}
+
+interface FetchGenresTvFailureAction {
+  type: typeof FETCH_GENRES_TV_FAILURE;
+  payload: string;
+}
+
+export type GenreTvActionTypes =
+  | FetchGenresTvRequestAction
+  | FetchGenresTvSuccessAction
+  | FetchGenresTvFailureAction;
