@@ -1,22 +1,28 @@
 import { Link, useLocation } from "react-router-dom";
 import logoLight from "../../assets/images/logoLight.png";
 import logoDark from "../../assets/images/logoDark.png";
-import {
-  FaBars,
-  FaTimes,
-  FaSearch,
-  FaUser,
-  FaHome,
-} from "react-icons/fa";
+import { FaBars, FaTimes, FaSearch, FaUser, FaHome } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import useToggle from "../../hooks/useToggle";
 import ThemeBtn from "../ThemeBtn/ThemeBtn";
 import { useTheme } from "../../contexts/themeContext";
-function Header() {
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { useSelector } from "react-redux";
+import { logout } from "../../store/actions/authActions";
+
+const Header: React.FC = () => {
   const { theme } = useTheme();
-  // const [isAuthenticated, setIsAuthenticated] =useState(false);
   const [isMenuOpen, setIsMenuOpen] = useToggle(false);
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>();
+  const { isAuthenticated, user } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
 
   const getNavLinkClass = (path: string) => {
     return location.pathname === path
@@ -30,7 +36,7 @@ function Header() {
         <div className="branding w-20 ml-4">
           <Link to="/" aria-label="Home link and Logo">
             <img
-              src={theme==='dark' ? logoDark : logoLight}
+              src={theme === "dark" ? logoDark : logoLight}
               alt="Watchify logo"
               width="64px"
               height="64px"
@@ -39,7 +45,7 @@ function Header() {
         </div>
 
         <div className="flex space-x-6 items-center">
-         <ThemeBtn/>
+          <ThemeBtn />
 
           <button
             className="text-light-text-main dark:text-dark-text-main md:hidden"
@@ -79,32 +85,32 @@ function Header() {
                 <FaSearch />
                 <span>Search</span>
               </Link>
-
+              {isAuthenticated && user && (
+                <Link
+                  className={`flex items-center space-x-2 font-medium duration-300 ${getNavLinkClass(
+                    "/profile"
+                  )} hover:scale-110`}
+                  to="/profile"
+                  onClick={setIsMenuOpen}
+                  aria-label="Profile link"
+                  aria-current={
+                    location.pathname === "/profile" ? "page" : undefined
+                  }>
+                  <FaUser />
+                  <span>{user?.displayName}</span>
+                </Link>
+              )}
               <Link
                 className={`flex items-center space-x-2 font-medium duration-300 ${getNavLinkClass(
-                  "/profile"
+                  "/auth"
                 )} hover:scale-110`}
-                to="/profile"
-                onClick={setIsMenuOpen}
-                aria-label="Profile link"
+                to={isAuthenticated ? "/" : "/auth"}
+                onClick={isAuthenticated ? handleLogOut : setIsMenuOpen}
+                aria-label={isAuthenticated ? "Log out" : "Auth link"}
                 aria-current={
-                  location.pathname === "/profile" ? "page" : undefined
+                  location.pathname === "/auth" ? "page" : undefined
                 }>
-                <FaUser />
-                <span>Profile</span>
-              </Link>
-
-              <Link
-                className={`flex items-center space-x-2 font-medium duration-300 ${getNavLinkClass(
-                  "/login"
-                )} hover:scale-110`}
-                to="/login"
-                onClick={setIsMenuOpen}
-                aria-label="Login link"
-                aria-current={
-                  location.pathname === "/login" ? "page" : undefined
-                }>
-                <span>Login</span>
+                <span>{isAuthenticated ? "Log out" : "Log in"}</span>
                 <MdOutlineLogin />
               </Link>
             </div>
@@ -113,6 +119,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

@@ -25,6 +25,9 @@ import StatusPage from "./pages/StatusPage/StatusPage";
 import Partnership from "./pages/Partnership/Partnership";
 import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
 import Error from "./pages/Error/Error";
+import { restoreAuth } from "./store/actions/authActions";
+
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,6 +40,10 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(restoreAuth());
   }, [dispatch]);
 
   if (loading) return <p>Loading...</p>;
@@ -53,7 +60,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Auth />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />
             <Route path="/faqs" element={<Faqs />} />
@@ -64,8 +71,13 @@ function App() {
             <Route path="/status" element={<StatusPage />} />
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/investor-relations" element={<InvestorRelations />} />
-            <Route path="/404" element={<Error/>}/>
-            <Route path ="*" element={<Navigate to={'/404'}/>}/>
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/reset-password/:oobCode"
+              element={<ResetPassword />}
+            />
+            <Route path="/404" element={<Error />} />
+            <Route path="*" element={<Navigate to={"/404"} />} />
           </Routes>
         </main>
         <Footer />
