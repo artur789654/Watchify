@@ -20,7 +20,7 @@ import Contact from "./pages/Contact/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService/TermsOfService";
 import CookieConsentBanner from "./components/CookieConsentBanner/CookieConsentBanner";
-import MovieDetails from "./pages/MovieDetails/MovieDetails";
+import MediaDetails from "./pages/MediaDetails/MediaDetails";
 import StatusPage from "./pages/StatusPage/StatusPage";
 import Partnership from "./pages/Partnership/Partnership";
 import InvestorRelations from "./pages/InvestorRelations/InvestorRelations";
@@ -76,7 +76,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/movie/:id" element={<MovieDetails />} />
+            <Route path="/movie/:id" element={<MediaDetails />} />
+            <Route path="/tv/:id" element={<MediaDetails />} />
             <Route path="/status" element={<StatusPage />} />
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/investor-relations" element={<InvestorRelations />} />
