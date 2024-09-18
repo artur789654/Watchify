@@ -20,7 +20,7 @@ const Filter: React.FC = () => {
   );
   const [minVotes, setMinVotes] = useState<number | undefined>(undefined);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const {
     genres: movieGenres,
