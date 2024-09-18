@@ -15,6 +15,7 @@ import {
 } from "../actions/actionTypes";
 
 interface User {
+  uid:string;
   displayName: string;
   email: string;
   password: string;

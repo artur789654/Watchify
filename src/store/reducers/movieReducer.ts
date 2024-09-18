@@ -1,54 +1,55 @@
 import { Movie } from "../../types/media";
 import {
-  FETCH_POPULAR_MOVIES_FAILURE,
-  FETCH_POPULAR_MOVIES_REQUEST,
-  FETCH_POPULAR_MOVIES_SUCCESS,
-  PopularMoviesActionTypes,
+  FETCH_MOVIE_FAILURE,
+  FETCH_MOVIE_REQUEST,
+  FETCH_MOVIE_SUCCESS,
+  MovieActionTypes,
 } from "../actions/actionTypes";
 
-interface PopularMoviesState {
+interface MovieState {
   loading: boolean;
   movies: Movie[] | null;
   totalPages: number;
   error: string | null;
 }
 
-const initialState: PopularMoviesState = {
+const initialState: MovieState = {
   loading: false,
-  movies: null,
-  totalPages:0,
+  movies: [],
+  totalPages: 0,
   error: null,
 };
 
-const popularMoviesReducer = (
+const movieReducer = (
   state = initialState,
-  actions: PopularMoviesActionTypes
-): PopularMoviesState => {
+  actions: MovieActionTypes
+): MovieState => {
   switch (actions.type) {
-    case FETCH_POPULAR_MOVIES_REQUEST:
+    case FETCH_MOVIE_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case FETCH_POPULAR_MOVIES_SUCCESS:
+    case FETCH_MOVIE_SUCCESS:
       return {
         ...state,
+        loading: false,
         movies: actions.payload.media,
         totalPages: actions.payload.totalPages,
-        loading: false,
         error: null,
       };
-    case FETCH_POPULAR_MOVIES_FAILURE:
+    case FETCH_MOVIE_FAILURE:
       return {
         ...state,
-        movies: null,
         loading: false,
-        error: actions.payload,
+        movies: [],
+        totalPages: 0,
+        error: actions.payload.error,
       };
     default:
       return state;
   }
 };
 
-export default popularMoviesReducer;
+export default movieReducer;

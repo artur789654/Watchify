@@ -6,9 +6,7 @@ import {
   FETCH_POPULAR_MOVIES_SUCCESS,
   PopularMoviesActionTypes,
 } from "./actionTypes";
-import {
-  setToLocalStorage,
-} from "../../helpers/storageUtils";
+import { setToLocalStorage } from "../../helpers/storageUtils";
 import axios from "axios";
 import {
   API_TIMEOUT,
@@ -24,35 +22,57 @@ const CACHE_TIME_KEY = "popularMoviesTimestap";
 
 export const fetchPopularMovies =
   (
-    page: number = 1
+    page: number = 1,
+    sortBy: string = "popularity.desc",
+    genreId?: number
   ): ThunkAction<void, RootState, unknown, PopularMoviesActionTypes> =>
   async (dispatch) => {
-    const cachedData = getCachedData<Movie>(CACHE_KEY, CACHE_TIME_KEY);
+    if (page === 1 && sortBy === "popularity.desc") {
+      const cachedData = getCachedData<Movie>(CACHE_KEY, CACHE_TIME_KEY);
 
-    if (cachedData) {
-      dispatch({
-        type: FETCH_POPULAR_MOVIES_SUCCESS,
-        payload: cachedData,
-      });
-      return;
+      if (cachedData) {
+        dispatch({
+          type: FETCH_POPULAR_MOVIES_SUCCESS,
+          payload: {
+            media: cachedData.movies,
+            totalPages: cachedData.totalPages,
+          },
+        });
+        return;
+      }
     }
+
     dispatch({ type: FETCH_POPULAR_MOVIES_REQUEST });
+
     try {
       const response = await axios.get(
         `${TMDB_BASE_URL}${POPULAR_MOVIES_ENDPOINT}`,
         {
-          params: { api_key: TMDB_API_KEY, page },
+          params: {
+            api_key: TMDB_API_KEY,
+            page,
+            sort_by: sortBy,
+            with_genres: genreId || undefined,
+          },
           timeout: API_TIMEOUT,
         }
       );
 
       const movies = response.data.results;
-      setToLocalStorage(CACHE_KEY, JSON.stringify(movies));
-      setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
+      const totalPages = response.data.total_pages;
+
+      if (page === 1) {
+        const cachedData = { movies, totalPages };
+        setToLocalStorage(CACHE_KEY, JSON.stringify(cachedData));
+        setToLocalStorage(CACHE_TIME_KEY, Date.now().toString());
+      }
 
       dispatch({
         type: FETCH_POPULAR_MOVIES_SUCCESS,
-        payload: movies,
+        payload: {
+          media: movies,
+          totalPages,
+        },
       });
     } catch (error: any) {
       dispatch({

@@ -9,12 +9,14 @@ import {
 interface TopRatedMoviesState {
   loading: boolean;
   movies: Movie[] | null;
+  totalPages: number;
   error: string | null;
 }
 
 const initialState: TopRatedMoviesState = {
   loading: false,
   movies: null,
+  totalPages: 0,
   error: null,
 };
 
@@ -32,7 +34,8 @@ const topRatedMoviesReducer = (
     case FETCH_TOP_RATED_MOVIES_SUCCESS:
       return {
         ...state,
-        movies: actions.payload,
+        movies: actions.payload.media,
+        totalPages: actions.payload.totalPages,
         loading: false,
         error: null,
       };

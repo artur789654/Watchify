@@ -12,6 +12,9 @@ export const POPULAR_MOVIES_ENDPOINT = "/movie/popular";
 export const TOP_RATED_MOVIES_ENDPOINT = "/movie/top_rated";
 export const UPCOMING_MOVIES_ENDPOINT = "/movie/upcoming";
 
+export const MOVIES_ENDPOINT ="/discover/movie"
+export const TV_ENDPOINT = "/discover/tv";
+
 export const POPULAR_TV_ENDPOINT = "/tv/popular";
 export const TOP_RATED_TV_ENDPOINT = "/tv/top_rated";
 

@@ -49,7 +49,8 @@ export const register = (
       );
 
       await updateProfile(userCredential.user, { displayName });
-      dispatch({ type: REGISTER_SUCCESS, payload: userCredential.user });
+      const {uid, email:userEmail, displayName: userDisplayName}= userCredential.user;
+      dispatch({ type: REGISTER_SUCCESS, payload: {uid, email: userEmail, displayName:userDisplayName} });
     } catch (error: any) {
       dispatch({ type: REGISTER_FAILURE, payload: error.message });
     }
@@ -69,7 +70,8 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
         email,
         password
       );
-      dispatch({ type: LOGIN_SUCCESS, payload: userCredential.user });
+      const {uid, email:userEmail, displayName: userDisplayName}= userCredential.user;
+      dispatch({ type: LOGIN_SUCCESS, payload:{uid, email:userEmail, displayName: userDisplayName} });
     } catch (error: any) {
       dispatch({ type: LOGIN_FAILURE, payload: error.message });
     }

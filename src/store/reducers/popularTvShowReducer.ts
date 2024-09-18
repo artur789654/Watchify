@@ -9,12 +9,14 @@ import {
 interface PopularTvShowState {
   loading: boolean;
   movies: TVShow[] | null;
+  totalPages: number;
   error: string | null;
 }
 
 const initialState: PopularTvShowState = {
   loading: false,
   movies: null,
+  totalPages: 0,
   error: null,
 };
 
@@ -32,7 +34,8 @@ const popularTvShowReducer = (
     case FETCH_POPULAR_TV_SHOW_SUCCESS:
       return {
         ...state,
-        movies: actions.payload,
+        movies: actions.payload.media,
+        totalPages: actions.payload.totalPages,
         loading: false,
         error: null,
       };
