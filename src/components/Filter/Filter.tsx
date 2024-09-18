@@ -10,8 +10,8 @@ const Filter: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const mediaType: "movies" | "tv" = location.pathname.includes("movies")
-  ? "movies"
-  : "tv";
+    ? "movies"
+    : "tv";
   const [sortBy, setSortBy] = useState<string>("popularity.desc");
   const [startDate, setStartDate] = useState<string | undefined>(undefined);
   const [endDate, setEndDate] = useState<string | undefined>(undefined);
@@ -79,13 +79,13 @@ const Filter: React.FC = () => {
   const genres = mediaType === "movies" ? movieGenres : tvGenres;
 
   return (
-    <div className="min-w-[240px] mt-4 lg:p-4 p-2 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-md space-y-6">
+    <div className="min-w-[240px] my-4 lg:p-4 p-2 bg-light-secondary dark:bg-dark-secondary rounded-md shadow-md space-y-6">
       <h2 className="text-xl font-semibold">Filter</h2>
       <div>
         <label className="block text-sm font-medium mb-1">
           Sort By:
           <select
-             className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
+            className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}>
             <option value="popularity.desc">Popularity Descending</option>
@@ -124,7 +124,7 @@ const Filter: React.FC = () => {
           <input
             type="date"
             value={startDate || ""}
-              className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
+            className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
             onChange={(e) => setStartDate(e.target.value)}
           />
         </label>
@@ -135,12 +135,12 @@ const Filter: React.FC = () => {
           <input
             type="date"
             value={endDate || ""}
-              className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
+            className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
             onChange={(e) => setEndDate(e.target.value)}
           />
         </label>
       </div>
-      
+
       <div className="relative">
         <label className="block text-sm font-medium mb-1">
           Min User Rating: {minUserRating}

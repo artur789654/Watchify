@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             {isMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
           <nav
-            className={`fixed top-[78px] -left-6 z-10 w-full h-full bg-light-primary dark:bg-dark-primary md:static md:w-auto md:h-auto md:bg-transparent md:flex md:space-x-6 transition-transform transform ${
+            className={`fixed top-[78px] -left-6 z-50 w-full h-full bg-light-head-foot dark:bg-dark-head-foot md:static md:w-auto md:h-auto md:bg-transparent md:flex md:space-x-6 transition-transform transform ${
               isMenuOpen ? "translate-x-0" : "translate-x-full"
             } md:translate-x-0`}>
             <div

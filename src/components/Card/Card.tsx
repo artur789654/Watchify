@@ -19,7 +19,6 @@ const Card: React.FC<Media> = ({ media }) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const watchList = useSelector((state: RootState) => state.watchList.items);
   const isInWatchList = watchList.some((item: any) => item.id === media.id);
-  console.log(media);
 
   const handleToggleWatchList = (e: MouseEvent) => {
     e.preventDefault();
@@ -38,7 +37,7 @@ const Card: React.FC<Media> = ({ media }) => {
 
   return (
       <Link
-        to={`/movie/${media.id}`}
+        to={`${"title" in media ?`/movie/${media.id}`:`/tv/${media.id}`}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         aria-label={`More details about ${"title" in media ? media.title : media.name}`}
