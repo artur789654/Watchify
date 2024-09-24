@@ -56,7 +56,7 @@ const Card: React.FC<Media> = ({ media }) => {
         {showDetails && (
           <>
             <div className="absolute top-4 left-4 bg-light-text-secondary p-1 rounded-full opacity-90 text-dark-text-main">
-              {media.vote_average.toFixed(2)}/10
+              {media.vote_average ? media.vote_average.toFixed(2) : 0 }/10
             </div>
             <div
               className={`absolute top-5 right-4 text-lg cursor-pointer ${

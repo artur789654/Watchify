@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoLight from "../../assets/images/logoLight.png";
 import logoDark from "../../assets/images/logoDark.png";
 import { FaBars, FaTimes, FaSearch, FaUser, FaHome } from "react-icons/fa";
@@ -10,11 +10,15 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { logout } from "../../store/actions/authActions";
+import { useState } from "react";
 
 const Header: React.FC = () => {
   const { theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useToggle(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { isAuthenticated, user } = useSelector(
     (state: RootState) => state.auth
@@ -22,6 +26,12 @@ const Header: React.FC = () => {
 
   const handleLogOut = () => {
     dispatch(logout());
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/search/1?query=${searchQuery}`);
+    setIsSearchOpen(false);
   };
 
   const getNavLinkClass = (path: string) => {
@@ -71,20 +81,37 @@ const Header: React.FC = () => {
                 <FaHome />
                 <span>Home</span>
               </Link>
+              {!isSearchOpen && (
+                <button
+                  className="flex items-center space-x-2 font-medium duration-300 text-light-link-main dark:text-dark-link-main hover:scale-110"
+                  onClick={() => setIsSearchOpen(true)}
+                  aria-label="Open search bar">
+                  <FaSearch />
+                  <span>Search</span>
+                </button>
+              )}
+              {isSearchOpen && (
+                <form
+                  className="flex items-center space-x-2 relative w-72"
+                  onSubmit={handleSearchSubmit}>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="block border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 w-full"
+                    placeholder="Search for movies or tv..."
+                    aria-label="Search input"
+                  />
+                  <button
+                    type="submit"
+                    onClick={setIsMenuOpen}
+                    className="absolute right-0 w-10 h-full flex items-center justify-center transform transition-transform duration-300 hover:scale-105 bg-slate-300 dark:bg-slate-600 rounded-md"
+                    aria-label="Submit search">
+                    <FaSearch  className="fill-slate-600 dark:fill-slate-400 "  />
+                  </button>
+                </form>
+              )}
 
-              <Link
-                className={`flex items-center space-x-2 font-medium duration-300 ${getNavLinkClass(
-                  "/search"
-                )} hover:scale-110`}
-                to="/search"
-                onClick={setIsMenuOpen}
-                aria-label="Search link"
-                aria-current={
-                  location.pathname === "/search" ? "page" : undefined
-                }>
-                <FaSearch />
-                <span>Search</span>
-              </Link>
               {isAuthenticated && user && (
                 <Link
                   className={`flex items-center space-x-2 font-medium duration-300 ${getNavLinkClass(

@@ -45,11 +45,9 @@ const MediaDetails: React.FC = () => {
     error: tvError,
   } = useSelector((state: RootState) => state.tvDetails);
 
-  const {
-    reviews,
-    loading: reviewsLoading,
-    error: reviewsError,
-  } = useSelector((state: RootState) => state.review);
+  const { reviews, loading: reviewsLoading } = useSelector(
+    (state: RootState) => state.review
+  );
   const [newReview, setNewReview] = useState("");
   const handleReviewChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNewReview(e.target.value);
@@ -98,7 +96,8 @@ const MediaDetails: React.FC = () => {
     }
   }, [dispatch, mediaType, id]);
 
-  const swiperRef = useRef<any>(null);
+  const castSwiperRef = useRef<any>(null);
+  const recommendationSwiperRef = useRef<any>(null);
   const [SwiperComponent, setSwiperComponent] = useState<any>(null);
 
   useEffect(() => {
@@ -209,13 +208,13 @@ const MediaDetails: React.FC = () => {
           </div>
           <div className="flex items-center mt-4">
             <h3 className="text-2xl font-semibold text-start">Cast:</h3>
-            <SliderBtn swiperRef={swiperRef} />
+            <SliderBtn swiperRef={castSwiperRef} />
           </div>
           <Swiper
             modules={[Navigation, Pagination, A11y]}
             slidesPerView={1}
             spaceBetween={10}
-            onSwiper={(swiper: object) => (swiperRef.current = swiper)}
+            onSwiper={(swiper: object) => (castSwiperRef.current = swiper)}
             breakpoints={{
               1400: {
                 slidesPerView: 6,
@@ -285,14 +284,16 @@ const MediaDetails: React.FC = () => {
                   <h3 className="text-2xl font-semibold text-start">
                     Recommendations:
                   </h3>
-                  <SliderBtn swiperRef={swiperRef} />
+                  <SliderBtn swiperRef={recommendationSwiperRef} />
                 </div>
               </div>
               <Swiper
                 modules={[Navigation, Pagination, A11y]}
                 slidesPerView={1}
                 spaceBetween={10}
-                onSwiper={(swiper: object) => (swiperRef.current = swiper)}
+                onSwiper={(swiper: object) =>
+                  (recommendationSwiperRef.current = swiper)
+                }
                 breakpoints={{
                   1400: {
                     slidesPerView: 6,
@@ -328,7 +329,7 @@ const MediaDetails: React.FC = () => {
           )}
           <div className="space-y-6">
             <h3 className="text-2xl text-start font-semibold">Reviews:</h3>
-            {movie.reviews.results.length > 0 ? (
+            {movie.reviews.results.length > 0 &&
               movie.reviews.results.map((review: any) => (
                 <div
                   key={review.id}
@@ -336,17 +337,13 @@ const MediaDetails: React.FC = () => {
                   <strong>{review.author}:</strong>
                   <p>{review.content}</p>
                 </div>
-              ))
-            ) : (
-              <p>No reviews available</p>
-            )}
+              ))}
           </div>
+
           <div className="mt-8">
             {reviewsLoading ? (
               <p>Loading reviews...</p>
-            ) : reviewsError ? (
-              <p>Error loading reviews: {reviewsError}</p>
-            ) : (
+            ) : reviews.length > 0 ? (
               <div className="space-y-6">
                 {reviews.map((review: any) => (
                   <div
@@ -357,6 +354,8 @@ const MediaDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
+            ) : (
+              movie.reviews.results.length === 0 && <p>No reviews available</p>
             )}
           </div>
           {user && (
