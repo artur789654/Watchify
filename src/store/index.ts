@@ -17,6 +17,7 @@ import genresMoviesReducer from "./reducers/genresMoviesReducer";
 import movieDetailsReducer from "./reducers/movieDetailsReducer";
 import TvDetailsReducer from "./reducers/tvDetailsReducer";
 import { reviewReducer } from "./reducers/reviewReducer";
+import { searchReducer } from "./reducers/searchReducer";
 
 const rootReducer = combineReducers({
   yourStateSlice: testReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   movieDetails: movieDetailsReducer,
   tvDetails: TvDetailsReducer,
   review: reviewReducer,
+  search: searchReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

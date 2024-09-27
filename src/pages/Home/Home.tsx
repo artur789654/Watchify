@@ -36,16 +36,35 @@ const Home: React.FC = () => {
     dispatch(fetchTopRatedTvShow());
   }, [dispatch]);
 
-  console.log(popularMovies)
   return (
     <>
       <Banner />
       <div className="container mx-auto p-6">
-        <MovieSlider title="Popular Movies" movies={popularMovies || [] } link = "/movies/popular/1" />
-        <MovieSlider title="Top Rated Movies" movies={topRatedMovies || []} link = "/movies/top-rated/1"/>
-        <MovieSlider title="Upcoming Movies" movies={upcomingMovies || []} link = "/movies/upcoming/1"/>
-        <MovieSlider title="Popular TV Show" movies={popularTvShow || []} link = "/tv/popular/1"/>
-        <MovieSlider title="Top Rated TV Show" movies={topRatedTvShow || []} link = "/tv/top-rated/1" />
+        <MovieSlider
+          title="Popular Movies"
+          movies={popularMovies || []}
+          link="/movies/popular/1"
+        />
+        <MovieSlider
+          title="Top Rated Movies"
+          movies={topRatedMovies || []}
+          link="/movies/top-rated/1"
+        />
+        <MovieSlider
+          title="Upcoming Movies"
+          movies={upcomingMovies || []}
+          link="/movies/upcoming/1"
+        />
+        <MovieSlider
+          title="Popular TV Show"
+          movies={popularTvShow || []}
+          link="/tv/popular/1"
+        />
+        <MovieSlider
+          title="Top Rated TV Show"
+          movies={topRatedTvShow || []}
+          link="/tv/top-rated/1"
+        />
         <Faqs />
       </div>
     </>

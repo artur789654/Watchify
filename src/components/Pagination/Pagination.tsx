@@ -14,7 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const maxPages = 500;
   const effectiveTotalPages = Math.min(totalPages, maxPages);
-  
+  if (totalPages <= 1) return null;
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -67,17 +67,21 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={handlePrevPage}
         disabled={currentPage === 1}
         className="text-sm md:text-base md:px-4 md:py-2 px-2 py-1 transition-bg duration-300 bg-dark-text-main dark:bg-light-text-main hover:bg-dark-text-secondary dark:hover:bg-light-text-secondary shadow-md rounded-md disabled:bg-light-secondary dark:disabled:bg-dark-secondary">
-        <MdOutlineNavigateBefore/>
+        <MdOutlineNavigateBefore />
       </button>
       {visiblePages.map((page, index) => (
         <React.Fragment key={index}>
           {page === -1 ? (
-            <span className="text-sm xl:text-base xl:px-4 md:py-2 px-0 py-1">...</span>
+            <span className="text-sm xl:text-base xl:px-4 md:py-2 px-0 py-1">
+              ...
+            </span>
           ) : (
             <button
               onClick={() => handlePageClick(page)}
               className={`text-sm md:text-base md:px-4 md:py-2 px-2 py-1 rounded-md transition-bg duration-300 ${
-                page === currentPage ? "bg-dark-text-secondary dark:bg-light-text-secondary text-white" : "bg-light-head-foot dark:bg-dark-head-foot hover:bg-dark-text-secondary dark:hover:bg-light-text-secondary"
+                page === currentPage
+                  ? "bg-dark-text-secondary dark:bg-light-text-secondary text-white"
+                  : "bg-light-head-foot dark:bg-dark-head-foot hover:bg-dark-text-secondary dark:hover:bg-light-text-secondary"
               }`}>
               {page}
             </button>
@@ -88,7 +92,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={handleNextPage}
         disabled={currentPage === effectiveTotalPages}
         className="text-sm md:text-base md:px-4 md:py-2 px-2 py-1 transition-bg duration-300 bg-dark-text-main dark:bg-light-text-main hover:bg-dark-text-secondary dark:hover:bg-light-text-secondary shadow-md rounded-md disabled:bg-light-secondary dark:disabled:bg-dark-secondary">
-        <MdNavigateNext/>
+        <MdNavigateNext />
       </button>
     </div>
   );

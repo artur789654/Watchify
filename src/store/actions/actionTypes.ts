@@ -381,3 +381,24 @@ export const ADD_REVIEW_FAILURE = "ADD_REVIEW_FAILURE";
 export const FETCH_REVIEWS_REQUEST = "FETCH_REVIEWS_REQUEST";
 export const FETCH_REVIEWS_SUCCESS = "FETCH_REVIEWS_SUCCESS";
 export const FETCH_REVIEWS_FAILURE = "FETCH_REVIEWS_FAILURE";
+
+export const FETCH_SEARCH_REQUEST = "SEARCH_REQUEST";
+export const FETCH_SEARCH_SUCCESS = "SEARCH_SUCCESS";
+export const FETCH_SEARCH_FAILURE = "SEARCH_FAILURE";
+
+export interface FetchSearchRequest {
+  type: typeof FETCH_SEARCH_REQUEST;
+}
+export interface FetchSearchSuccess {
+  type: typeof FETCH_SEARCH_SUCCESS;
+  payload: Movie | TVShow;
+}
+export interface FetchSearchFailure {
+  type: typeof FETCH_SEARCH_FAILURE;
+  payload: string;
+}
+
+export type SearchActionsType =
+  | FetchSearchRequest
+  | FetchSearchSuccess
+  | FetchSearchFailure;

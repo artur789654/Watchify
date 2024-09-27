@@ -67,7 +67,7 @@ function App() {
           <Routes>
             <Route path="/new" element={<NewPage />} />
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search/:page" element={<Search />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
