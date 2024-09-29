@@ -46,14 +46,14 @@ export const addToWatchList =
     const docRef = doc(db, 'watchList', userId);
     const docSnap =await getDoc(docRef);
 
-    let items = []
+    let items = [];
     if(docSnap.exists()){
       items = docSnap.data().items;
     }
     dispatch({type: SET_WATCHLIST, payload: items})
     return items;
   }catch(error:any){
-    console.error(error.message);
+    console.error(error);
     return [];
   }
  } 

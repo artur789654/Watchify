@@ -50,7 +50,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (user) {
+    if (user?.uid) {
       dispatch(fetchWatchList(user.uid));
     }
   }, [dispatch, user]);
