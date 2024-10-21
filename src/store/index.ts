@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import testReducer from "./reducers/testReducer";
 import bannerReducer from "./reducers/bannerReducer";
 import popularMoviesReducer from "./reducers/popularMoviesReducer";
 import topRatedMoviesReducer from "./reducers/topRatedMoviesReducer";
@@ -20,7 +19,6 @@ import { reviewReducer } from "./reducers/reviewReducer";
 import { searchReducer } from "./reducers/searchReducer";
 
 const rootReducer = combineReducers({
-  yourStateSlice: testReducer,
   banner: bannerReducer,
   popularMovies: popularMoviesReducer,
   topRatedMovies: topRatedMoviesReducer,

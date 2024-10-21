@@ -16,7 +16,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const storedTheme = getFromLocalStorage("theme");
-  const initialTheme:Theme =storedTheme==='dark'? 'dark': 'light';
+  const initialTheme: Theme = storedTheme === "dark" ? "dark" : "light";
   const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme: Theme) => (prevTheme === "light" ? "dark" : "light"));
   };
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

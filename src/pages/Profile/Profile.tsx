@@ -22,6 +22,8 @@ const Profile: React.FC = () => {
   const { user, loading } = useSelector((state: RootState) => state.auth);
   const { items } = useSelector((state: RootState) => state.watchList);
 
+  const [filterType, setFilterType] = useState<string>("all");
+
   const handleChangeInfo = () => {
     setIsEditingInfo((prev) => !prev);
     setIsChangePass(false);
@@ -30,6 +32,11 @@ const Profile: React.FC = () => {
     setIsChangePass((prev) => !prev);
     setIsEditingInfo(false);
   };
+
+  const filteredItems = items.filter((item: Movie | TVShow) => {
+    if (filterType === "all") return true;
+    return filterType === "movie" ? "title" in item : "name" in item;
+  });
 
   const profileFormik = useFormik({
     initialValues: {
@@ -58,7 +65,9 @@ const Profile: React.FC = () => {
     }),
     onSubmit: (values) => {
       setErrorMessage(null);
-      dispatch(updateUserProfile(values.displayName, values.email, values.password))
+      dispatch(
+        updateUserProfile(values.displayName, values.email, values.password)
+      )
         .then(() => {
           setSuccessMessage("Profile updated successfully");
           setTimeout(() => {
@@ -125,11 +134,13 @@ const Profile: React.FC = () => {
   }, [user]);
 
   return (
-    <div className="containe m-4 mx-auto p-4 space-y-6 rounded-md shadow-md">
+    <div className="containe m-4 mx-auto p-4 space-y-6">
       <div className="bg-light-secondary dark:bg-dark-secondary p-6 rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold">Profile Information</h2>
+        <h2 className="text-start text-2xl font-semibold mb-6">Profile Information</h2>
         {isEditingInfo ? (
-          <form className="space-y-4" onSubmit={profileFormik.handleSubmit}>
+          <form
+            className="max-w-xs mx-auto space-y-4"
+            onSubmit={profileFormik.handleSubmit}>
             <div>
               <label
                 htmlFor="displayName"
@@ -188,13 +199,13 @@ const Profile: React.FC = () => {
             <button
               type="button"
               onClick={handleChangeInfo}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md">
-              Close
+              className="mr-4 p-2 rounded text-dark-text-main bg-dark-button-main hover:bg-dark-button-hover transition-bg duration-300">
+              Cancle
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md">
-              {loading ? "Saving..." : "Save changes"}
+              className="p-2 rounded text-dark-text-main bg-light-button-main hover:bg-light-button-hover transition-bg duration-300">
+              {loading ? "Saving..." : "Save"}
             </button>
             {successMessage && (
               <div className="text-green-500 text-sm mt-1">
@@ -206,16 +217,16 @@ const Profile: React.FC = () => {
             )}
           </form>
         ) : (
-          <div>
-            <p>
+          <div className=" space-y-4">
+            <p className="text-start text-lg">
               <strong>Name:</strong> {user?.displayName}
             </p>
-            <p>
+            <p className="text-start text-lg">
               <strong>Email:</strong> {user?.email}
             </p>
             <button
               onClick={handleChangeInfo}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              className="p-2 rounded text-dark-text-main bg-light-button-main dark:bg-dark-button-main hover:bg-light-button-hover dark:hover:bg-dark-button-hover">
               Change Personal Info
             </button>
           </div>
@@ -224,7 +235,7 @@ const Profile: React.FC = () => {
         <div className="mt-4 space-x-4">
           {isChangePass ? (
             <form
-              className="space-y-4"
+              className="max-w-xs mx-auto space-y-4"
               onSubmit={changePassFormik.handleSubmit}>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium">
@@ -279,32 +290,49 @@ const Profile: React.FC = () => {
               <button
                 type="button"
                 onClick={handleChangePass}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                className="mr-4 p-2 rounded text-dark-text-main bg-dark-button-main hover:bg-dark-button-hover transition-bg duration-300">
                 Cancle
               </button>
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                className="p-2 rounded text-dark-text-main bg-light-button-main hover:bg-light-button-hover transition-bg duration-300">
                 Save
               </button>
             </form>
           ) : (
             <button
               onClick={handleChangePass}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              className="p-2 rounded text-dark-text-main bg-light-button-main dark:bg-dark-button-main hover:bg-light-button-hover dark:hover:bg-dark-button-hover">
               Change Password
             </button>
           )}
         </div>
       </div>
-      <div className="bg-light-secondary dark:bg-dark-secondary p-6 rounded-md shadow-md">
+      <div className="bg-light-secondary dark:bg-dark-secondary p-6 rounded-md shadow-md space-y-6">
+        <div className="flex flex-wrap justify-between gap-4">
         <h2 className="text-2xl font-semibold">Watchlist</h2>
-        {items.length > 0 ? (
-          <ul className="list-disc pl-5 space-y-2">
-            {items.map((item: Movie | TVShow, index: number) => (
+        <div className="flex items-center gap-2">
+          <label htmlFor="filter" className="font-medium">
+            Filter by:
+          </label>
+          <select
+            name="filter"
+            id="filter"
+            className="w-fit border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-gray-300 dark:border-gray-600 shadow-sm"
+            value={filterType}
+            onChange={(e)=> setFilterType(e.target.value)}>
+            <option value="all">All</option>
+            <option value="movie">Movies</option>
+            <option value="tv">TV Shows</option>
+          </select>
+        </div>
+        </div>
+        {filteredItems.length > 0 ? (
+          <div className="flex flex-wrap gap-4  md:justify-start justify-center">
+            {filteredItems.map((item: Movie | TVShow, index: number) => (
               <Card key={`${index}${item.id}`} media={item} />
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No items in your watchlist.</p>
         )}

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, fetchData } from "../src/store/actions/dataActions";
+import { AppDispatch } from "../src/store";
 import "./App.css";
 
 import { RootState } from "./store/index";
-import NewPage from "../src/pages/NewPage/NewPage";
+
 import Header from "./components/Header/Header";
 import { ThemeProvider } from "./contexts/themeContext";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -34,16 +34,7 @@ import { fetchWatchList } from "./store/actions/watchListActions";
 function App() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const data = useSelector((state: RootState) => state.yourStateSlice.data);
-  const loading = useSelector(
-    (state: RootState) => state.yourStateSlice.loading
-  );
-  const error = useSelector((state: RootState) => state.yourStateSlice.error);
   const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
 
   useEffect(() => {
     dispatch(restoreAuth());
@@ -55,9 +46,6 @@ function App() {
     }
   }, [dispatch, user]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  console.log(data, "data");
   return (
     <ThemeProvider>
       <div className="App min-h-screen flex flex-col">
@@ -65,10 +53,9 @@ function App() {
         <Header />
         <main className="flex-grow bg-light-primary dark:bg-dark-primary text-light-text-main dark:text-dark-text-main">
           <Routes>
-            <Route path="/new" element={<NewPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/search/:page" element={<Search />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={user ? <Profile /> : <Navigate to="/auth"/>} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />

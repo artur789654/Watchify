@@ -1,51 +1,111 @@
-# Getting Started with Create React App
-node version - v16.17.1
+# Streaming Platform Website
 
-To setup this project please use:
+This is a React-based website for a streaming platform that provides users access to movies and series. The platform includes features such as user authentication, movie browsing, filter, and detailed media information.
 
-### `npm install`
+## Table of Contents
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- **React**: Frontend framework
+- **Redux**: State management
+- **TypeScript**: Type checking
+- **Tailwind CSS**: Styling
+- **React Router**: Navigation
+- **The Movie Database (TMDB) API**: Fetching movie and TV show data
+- **Firebase**: User authentication, database
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User authentication (Sign In, Sign Up, Reset Password)
+- Browse movies and TV series by categories (Popular, Top Rated, Upcoming)
+- Filter movies and TV by (category, popularity, etc.)
+- Search functionality for movies and tv shows
+- Watchlist feature for logged-in users
+- Privacy Policy, Terms of Service, Support and Contact pages
+- Cookie consent banner
+- Responsive design with light/dark theme toggle
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+To run the project locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
 
-### `npm run build`
+    ```bash
+    git clone https://github.com/your-username/your-repo.git
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Navigate to the project directory:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    cd your-repo
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install dependencies:
 
-### `npm run eject`
+    ```bash
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Add your TMDB API key in `apiConstants.ts`:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```typescript
+    export const TMDB_API_KEY = "your-tmdb-api-key";
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+5. Run the app:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    ```bash
+    npm start
+    ```
 
-## Learn More
+The app should now be running at `http://localhost:3000`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Browse movies and TV shows through categories.
+- Create an account to access personalized features like watchlists.
+- Use the light/dark theme toggle for your preferred theme.
+- Manage your profile and personal data through the profile page (available to authenticated users).
+
+## Deployment
+
+This project is deployed on Netlify. You can access the live version here:
+
+[Live Demo on Netlify](https://wachify.netlify.app/)
+
+## Firebase Setup
+
+To use Firebase for authentication and storing user data:
+
+1. Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project.
+2. Enable **Authentication** and select **Email/Password** as the sign-in method.
+3. Enable **Firestore Database** to store user watchlists and other data.
+4. In your Firebase project settings, generate the Firebase configuration object and paste it into your `firebaseConfig.ts` file.
+5. Make sure to set up Firebase rules for security, especially for authentication and database access.
+
+
+## Project Structure
+
+```bash
+src/
+├── assets/            # logo images
+├── components/        # Shared components (Header, Footer, etc.)
+├── contexts/          # Context providers (ThemeProvider)
+├── data/              # Static data
+├── firebase/          # Firebase setup, configuration
+├── helpers/           # Helper methods
+├── hooks/             # Custom React hooks
+├── pages/             # Page components (Home, Profile, etc.)
+├── store/             # Redux store setup, reducers, and action creators
+├── types/             # TypeScript types and interfaces
+└── App.tsx            # Main application component

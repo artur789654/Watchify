@@ -34,7 +34,6 @@ import {
   confirmPasswordReset,
   updateEmail,
   updatePassword,
-  sendEmailVerification,
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
@@ -167,19 +166,11 @@ export const updateUserProfile = (
         await reauthenticateWithCredential(user, credential);
 
         if (user.email !== email) {
-          try {
-            await sendEmailVerification(user);
-            console.log("Verification email sent to new email. Please verify.");
-          } catch (error) {
-            console.error("Error sending verification email: ", error);
-          }
-            await updateEmail(user, email);
-            console.log("Email updated successfully.");
+          await updateEmail(user, email);
         }
 
         if (user.displayName !== displayName) {
           await updateProfile(user, { displayName });
-          console.log("Display name updated successfully.");
         }
         dispatch({
           type: UPDATE_PROFILE_SUCCESS,
