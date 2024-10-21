@@ -1,5 +1,8 @@
 import { Dispatch } from "redux";
 import {
+  CHANGE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -13,6 +16,9 @@ import {
   SEND_PASSWORD_RESET_EMAIL_FAILURE,
   SEND_PASSWORD_RESET_EMAIL_REQUEST,
   SEND_PASSWORD_RESET_EMAIL_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
 } from "./actionTypes";
 
 import {
@@ -26,6 +32,10 @@ import {
   updateProfile,
   sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   confirmPasswordReset,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 
@@ -49,8 +59,15 @@ export const register = (
       );
 
       await updateProfile(userCredential.user, { displayName });
-      const {uid, email:userEmail, displayName: userDisplayName}= userCredential.user;
-      dispatch({ type: REGISTER_SUCCESS, payload: {uid, email: userEmail, displayName:userDisplayName} });
+      const {
+        uid,
+        email: userEmail,
+        displayName: userDisplayName,
+      } = userCredential.user;
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: { uid, email: userEmail, displayName: userDisplayName },
+      });
     } catch (error: any) {
       dispatch({ type: REGISTER_FAILURE, payload: error.message });
     }
@@ -70,8 +87,15 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
         email,
         password
       );
-      const {uid, email:userEmail, displayName: userDisplayName}= userCredential.user;
-      dispatch({ type: LOGIN_SUCCESS, payload:{uid, email:userEmail, displayName: userDisplayName} });
+      const {
+        uid,
+        email: userEmail,
+        displayName: userDisplayName,
+      } = userCredential.user;
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { uid, email: userEmail, displayName: userDisplayName },
+      });
     } catch (error: any) {
       dispatch({ type: LOGIN_FAILURE, payload: error.message });
     }
@@ -122,6 +146,56 @@ export const resetPassword = (oobCode: string, newPassword: string) => {
       dispatch({ type: RESET_PASSWORD_SUCCESS });
     } catch (error: any) {
       dispatch({ type: RESET_PASSWORD_FAILURE, payload: error.message });
+    }
+  };
+};
+
+export const updateUserProfile = (
+  displayName: string,
+  email: string,
+  password: string
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: UPDATE_PROFILE_REQUEST });
+
+    try {
+      const user = auth.currentUser;
+
+      if (user) {
+        const credential = EmailAuthProvider.credential(user.email!, password);
+        await reauthenticateWithCredential(user, credential);
+
+        if (user.email !== email) {
+          await updateEmail(user, email);
+        }
+
+        if (user.displayName !== displayName) {
+          await updateProfile(user, { displayName });
+        }
+        dispatch({
+          type: UPDATE_PROFILE_SUCCESS,
+          payload: { displayName, email },
+        });
+      }
+    } catch (error: any) {
+      console.error("Error updating profile: ", error);
+      dispatch({ type: UPDATE_PROFILE_FAILURE, payload: error.message });
+    }
+  };
+};
+
+export const changeUserPassword = (newPassword: string) => {
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: CHANGE_PASSWORD_REQUEST });
+    try {
+      const user = auth.currentUser;
+
+      if (user) {
+        await updatePassword(user, newPassword);
+        dispatch({ type: CHANGE_PASSWORD_SUCCESS });
+      }
+    } catch (error: any) {
+      dispatch({ type: CHANGE_PASSWORD_FAILURE, payload: error.message });
     }
   };
 };

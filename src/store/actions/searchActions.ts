@@ -55,7 +55,6 @@ export const fetchSearch =
         movieResponse.data.total_pages,
         tvResponse.data.total_pages
       );
-        console.log(searchResults, totalPages)
       dispatch({
         type: FETCH_SEARCH_SUCCESS,
         payload: { results: searchResults, totalPages },

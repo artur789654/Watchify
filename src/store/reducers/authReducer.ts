@@ -1,4 +1,7 @@
 import {
+  CHANGE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -12,10 +15,13 @@ import {
   SEND_PASSWORD_RESET_EMAIL_FAILURE,
   SEND_PASSWORD_RESET_EMAIL_REQUEST,
   SEND_PASSWORD_RESET_EMAIL_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
 } from "../actions/actionTypes";
 
 interface User {
-  uid:string;
+  uid: string;
   displayName: string;
   email: string;
   password: string;
@@ -70,14 +76,24 @@ export const authReducer = (
 
     case SEND_PASSWORD_RESET_EMAIL_REQUEST:
     case RESET_PASSWORD_REQUEST:
+    case CHANGE_PASSWORD_REQUEST:
       return { ...state, loading: true, error: null };
 
     case SEND_PASSWORD_RESET_EMAIL_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
+    case CHANGE_PASSWORD_SUCCESS:
       return { ...state, loading: false, success: true };
 
     case SEND_PASSWORD_RESET_EMAIL_FAILURE:
     case RESET_PASSWORD_FAILURE:
+    case CHANGE_PASSWORD_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    case UPDATE_PROFILE_REQUEST:
+      return { ...state, loading: true, error: null };
+    case UPDATE_PROFILE_SUCCESS:
+      return { ...state, loading: false, user: action.payload };
+    case UPDATE_PROFILE_FAILURE:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
